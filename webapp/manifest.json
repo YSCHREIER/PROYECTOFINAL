@@ -144,6 +144,9 @@
         "menu": {               
           "viewName": "Menu"
         },
+        "crear_empleado": {               
+          "viewName": "CrearEmpleado"
+        },
         "ver_empleados": {               
           "viewName": "VerEmpleados"
         },
