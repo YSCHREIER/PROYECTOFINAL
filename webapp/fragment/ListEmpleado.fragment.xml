@@ -3,11 +3,15 @@ xmlns="sap.m"
 xmlns:core="sap.ui.core"
 xmlns:form="sap.ui.layout.form">
 
- <List items="{odataModelZEmployees>/Users}" id="listEmployee">
+ <List items="{odataModelZEmployees>/Users}" 
+       id="listEmployee">
                         <items>
-                            <ObjectListItem title="{odataModelZEmployees>FirstName} {odataModelZEmployees>LastName}" 
+                            <ObjectListItem 
+                            
+                            title="{odataModelZEmployees>FirstName} {odataModelZEmployees>LastName}" 
+                            press="onSelectionEmployee" 
+                            type="Navigation"
                            
-                            type="Active"
                             >
                             <attributes>
                                 <ObjectAttribute text ="{odataModelZEmployees>Dni}"/>                                                         

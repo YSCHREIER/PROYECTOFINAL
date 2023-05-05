@@ -25,14 +25,14 @@
 				id="detailEmployee"
 				title="{i18n>detalleEmpleado}">
 				<ObjectHeader
-					icon= "{= ${odataModel>Type}==='0' ? 'sap-icon://employee-pane' : ${odataModel>Type}==='1' ? 'sap-icon://employee' : 'sap-icon://leads' }"
-					title="{odataModel>FirstName} {odataModel>LastName}"
-					intro="{odataModel>Dni}"
+					icon= "{= ${odataModelZEmployees>Type}==='0' ? 'sap-icon://employee-pane' : ${odataModelZEmployees>Type}==='1' ? 'sap-icon://employee' : 'sap-icon://leads' }"
+					title="{odataModelZEmployees>FirstName} {odataModelZEmployees>LastName}"
+					intro="{odataModelZEmployees>Dni}"
 					class="sapUiResponsivePadding--header"
 					responsive="true">
-						<ObjectAttribute title="{i18n>fechaIncorporacion}" text="{ path:'odataModel>CreationDate', type:'sap.ui.model.type.Date'}" />
-						<ObjectAttribute title="{i18n>tipo}" text="{= ${odataModel>Type} === '0' ? ${i18n>interno} : ${odataModel>Type} === '1' ? ${i18n>autonomo} : ${i18n>gerente}}" />
-						<ObjectAttribute title="{i18n>comentario}" text="{odataModel>Comments}" />
+						<ObjectAttribute title="{i18n>lblFechaIncorporacion}" text="{ path:'odataModelZEmployees>CreationDate', type:'sap.ui.model.type.Date'}" />
+						<ObjectAttribute title="{i18n>lblTipoEmpleado}" text="{= ${odataModelZEmployees>Type} === '0' ? ${i18n>interno} : ${odataModelZEmployees>Type} === '1' ? ${i18n>autonomo} : ${i18n>gerente}}" />
+						<ObjectAttribute title="{i18n>lblComentario}" text="{odataModelZEmployees>Comments}" />
 				</ObjectHeader>
 				<IconTabBar
 					class="sapUiResponsiveContentPadding">
@@ -40,7 +40,7 @@
 						<IconTabFilter
 							design="Horizontal"
 							icon="sap-icon://attachment"
-							text="{i18n>ficheros}">
+							text="{i18n>lblFichero}">
 							<UploadCollection
                                         id="UploadCollection"
                                         maximumFilenameLength="55"
@@ -49,7 +49,7 @@
                                         sameFilenameAllowed="true"
                                         instantUpload="true"
                                         uploadUrl="/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments"
-                                        items="{odataModel>UserToAttachment}"
+                                        items="{odataModelZEmployees>UserToAttachment}"
                                         change="onChange"
                                         uploadComplete="onUploadComplete"
                                         beforeUploadStarts="onBeforeUploadStart"
@@ -59,7 +59,7 @@
                                     <UploadCollectionItem
                                         documentId="{odataModel>AttId}"
                                         visibleEdit="false"
-                                        fileName="{odataModel>DocName}"
+                                        fileName="{odataModelZEmployees>DocName}"
                                         press="downloadFile">
                                     </UploadCollectionItem>
                                 </items>
@@ -77,15 +77,15 @@
 								enableScroll="false"
 								height="100%"
 								sortOldestFirst="true"
-								content="{odataModel>UserToSalary}">
+								content="{odataModelZEmployees>UserToSalary}">
 								<suite:content>
 									<suite:TimelineItem
-										userName="{parts:[{path:'odataModel>Ammount'},{path:'odataModel>Waers'}],
+										userName="{parts:[{path:'odataModelZEmployees>Ammount'},{path:'odataModelZEmployees>Waers'}],
 												type: 'sap.ui.model.type.Currency',
 												formatOptions: {showMeasure: false}}"
 										icon="sap-icon://circle-task"
-										text="{odataModel>Comments}"
-										dateTime="{odataModel>CreationDate}">
+										text="{odataModelZEmployees>Comments}"
+										dateTime="{odataModelZEmployees>CreationDate}">
 									</suite:TimelineItem>
 								</suite:content>
 							</suite:Timeline>
@@ -98,6 +98,7 @@
 						<Button text="{i18n>darDeBaja}" press="onDeleteEmployee"></Button>
 						<Button text="{i18n>ascender}" press="onRiseEmployee"></Button>
 					</Toolbar>
+					
 				</footer>
 			</Page>
 		</detailPages>

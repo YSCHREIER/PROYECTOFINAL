@@ -79,6 +79,7 @@ sap.ui.define([
 				
                 oModelEmployee.setProperty("/CantidadArchivos",numFiles);
 
+                
 				if (numFiles > 0) {
 					var arrayFiles = [];
 					for(var i in files){

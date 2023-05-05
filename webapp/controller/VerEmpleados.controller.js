@@ -12,6 +12,20 @@ sap.ui.define([
             
         },
 
+        onSelectionEmployee:function(oEvent)
+        {
+            let oBindingContext = oEvent.getSource().getBindingContext("odataModelZEmployees"),
+                sIdEmployee = oBindingContext.getObject().EmployeeId,
+                sPath = oEvent.getSource().getBindingContext("odataModelZEmployees").getPath();
+
+                let oDetail = this.getView().byId("detailEmployee");
+                oDetail.bindElement("odataModelZEmployees>"+ sPath);
+
+                
+                this.byId("splitAppEmployee").to(this.createId("detailEmployee"));
+
+        },
+
         onSearchEmployee:function(oEvent)
         {
 
