@@ -161,7 +161,7 @@ sap.ui.define([
                     oItem.addHeaderField(oCustomerText);
 
                     oItem.setUploadState("Ready");
-                    uploadCollection.setUploadUrl("/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments");
+                    uploadCollection.setUploadUrl("/gestionempleados/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments");
                     
                     uploadCollection.uploadItem(oItem);
 
