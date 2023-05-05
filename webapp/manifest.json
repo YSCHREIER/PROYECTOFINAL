@@ -1,0 +1,164 @@
+{
+  "_version": "1.48.0",
+  "sap.app": {
+    "id": "gestionempleados",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.9.4",
+      "toolsId": "277156d2-5370-40ba-983c-e090e1641d31"
+    },
+    "dataSources": {
+      "ZEMPLOYEES_SRV": {
+        "uri": "/sap/opu/odata/sap/ZEMPLOYEES_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.108.4",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "gestionempleados.i18n.i18n"
+        }
+      },
+      "odataModelZEmployees": {
+        "dataSource": "ZEMPLOYEES_SRV",
+        "preload": true,
+        "settings": {
+
+          "defaultOperationMode": "Server",
+                    "defaultBindingMode": "OneWay",
+                    "defaultCountMode": "Request"
+
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "gestionempleados.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "menu",
+          "pattern": "",
+          "target": [
+            "menu"
+          ]
+        },
+        {
+          "name": "crear_empleado",
+          "pattern": "CrearEmpleado",
+          "target": [
+            "crear_empleado"
+          ]
+        },
+
+        {
+          "name": "ver_empleados",
+          "pattern": "VerEmpleados",
+          "target": [
+            "ver_empleados"
+          ]
+        },
+
+        {
+          "name": "master_empleados",
+          "pattern": "MasterEmpleados",
+          "target": [
+            "master_empleados"
+          ]
+        },
+
+        {
+          "name": "detalle_empleado",
+          "pattern": "EmployeeDetails/{EmployeeID}",
+          "target": [
+            "detalle_empleado"
+          ]
+        }
+
+      ],
+      "targets": {
+        "menu": {               
+          "viewName": "Menu"
+        },
+        "ver_empleados": {               
+          "viewName": "VerEmpleados"
+        },
+        "master_empleados": {               
+          "viewName": "Master"
+        },
+        "detalle_empleado": {               
+          "viewName": "Details"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "gestionempleados.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

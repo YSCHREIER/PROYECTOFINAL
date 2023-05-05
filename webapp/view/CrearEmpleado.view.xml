@@ -1,0 +1,209 @@
+<mvc:View controllerName="gestionempleados.controller.CrearEmpleado"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:upload="sap.m.upload"
+   >
+
+<NavContainer id="wizardNavContainer">
+			<pages>
+				<Page
+				id="wizardContentPage"
+				showHeader="false">
+					<content>
+						<Wizard id="CreateEmployee" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+								complete="onWizardCompletedHandler">
+
+							<WizardStep id="EmployeeTypeStep"
+										title="Tipo de Empleado"
+										validated="false">
+								<MessageStrip class="sapUiSmallMarginBottom"
+										text="{i18n>MessageStrip1}"
+										showIcon="true"/>
+
+                                        <HBox
+										alignItems="Center"
+										justifyContent="Center"
+										width="100%">
+									<SegmentedButton
+										width="320px"
+										selectionChange="setDataEmployeeSegmented">
+										<items>
+											<SegmentedButtonItem icon="sap-icon://iphone" text="{i18n>btnInterno}" press="onPressInterno"/>
+											<SegmentedButtonItem icon="sap-icon://sys-monitor" text="{i18n>btnAutonomo}" press="onPressAutonomo"/>
+											<SegmentedButtonItem icon="sap-icon://database" text="{i18n>btnGerente}" press="onPressGerente"/>
+										</items>
+									</SegmentedButton>
+								</HBox>
+							</WizardStep>
+							<WizardStep id="DataEmployeeStep"
+										validated="false"
+										title="Datos Empleado"
+										activate="onDataEmployeeValidation">
+								<MessageStrip class="sapUiSmallMarginBottom"
+										text="{i18n>MessageStrip2}"
+										showIcon="true"/>
+								
+								<form:SimpleForm editable="true">
+
+									<Label text="{i18n>lblNombre}" required="true"/>
+									<Input 	id="inputName" 
+                                            value="{jsonEmployee>/Nombre}"
+                                            valueState="{jsonEmployee>/StateNombre}"
+                                            liveChange="onDataEmployeeValidation"/>
+
+                                    <Label text="{i18n>lblApellido}" required="true"/>
+									<Input id="inputApellido" 
+                                           value="{jsonEmployee>/Apellido}"
+                                           valueState="{jsonEmployee>/StateApellido}"
+                                           liveChange="onDataEmployeeValidation"/>
+
+                                    <Label text="{i18n>lblDNI}" 
+                                            id="lblDNI"
+                                            required="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleDNIInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleDNIGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleDNIAutonomo} : false }"
+
+                                            visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleDNIInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleDNIGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleDNIAutonomo} : false }"                                                                                   
+                                           />
+									<Input id="inputDNI" 
+                                           value="{jsonEmployee>/DNI}" 
+                                           valueState="{jsonEmployee>/StateDNI}"
+                                           change="onValidateDNI"
+                                           
+                                           visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleDNIInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleDNIGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleDNIAutonomo} : false }" 
+                                            />
+
+                                    <Label text="{i18n>lblCIF}" 
+                                     id="lblCIF"
+                                    required="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleCIFInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleCIFGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleCIFAutonomo} : false }"
+                                            
+                                            visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleCIFInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleCIFGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleCIFAutonomo} : false }"  />
+
+									<Input id="inputCIF" 
+                                           value="{jsonEmployee>/CIF}"
+                                           valueState="{jsonEmployee>/StateCIF}"
+                                           liveChange="onDataEmployeeValidation"
+                                           visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleCIFInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleCIFGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleCIFAutonomo} : false }" />
+
+                                    <Label text="{i18n>lblSaldoBrutoAnual}" 
+                                           required="false" 
+                                           visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleSaldoBrutoAnualInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleSaldoBrutoAnualGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleSaldoBrutoAnualAutonomo} : false }"/>
+                                    <Slider enableTickmarks="true" 
+                                            showAdvancedTooltip="true"
+				                            inputsAsTooltips="true"
+                                            step="1000"
+                                            id="sliderSaldoBrutoAnual"
+
+                                            value="{jsonEmployee>/SaldoBrutoAnual}"
+
+                                            min="{= ${jsonEmployee>/TipoEmpleado} ==='I'? parseInt(${jsonConfig>/RangoSaldoBrutoAnualDesdeInterno}) :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? parseInt(${jsonConfig>/RangoSaldoBrutoAnualDesdeGerente}) : 0 }"
+
+                                            max="{= ${jsonEmployee>/TipoEmpleado} ==='I'? parseInt(${jsonConfig>/RangoSaldoBrutoAnualHastaInterno}) :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? parseInt(${jsonConfig>/RangoSaldoBrutoAnualHastaGerente}) : 10 }"
+
+                                            class="sapUiMediumMarginBottom" 
+                                            
+                                            width="100%"
+                                            
+                                            visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleSaldoBrutoAnualInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleSaldoBrutoAnualGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleSaldoBrutoAnualAutonomo} : false }"/>
+                                    
+
+								  <Label text="{i18n>lblPrecioDiario}" 
+                                         
+                                         required="false" 
+                                          visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visiblePrecioDiarioInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visiblePrecioDiarioGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visiblePrecioDiarioAutonomo} : false }"/>
+                                    <Slider enableTickmarks="true" 
+                                            id="sliderPrecioDiario"
+                                            showAdvancedTooltip="true"
+				                            inputsAsTooltips="true"
+                                            step="100"
+                                            value="{jsonEmployee>/PrecioDiario}"
+                                            min="{jsonConfig>/RangoPrecioDesde}"
+
+                                            max="{jsonConfig>/RangoPrecioHasta}"
+
+                                            class="sapUiMediumMarginBottom" 
+                                            width="100%"
+                                            visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visiblePrecioDiarioInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visiblePrecioDiarioGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visiblePrecioDiarioAutonomo} : false }"/>
+
+                                     <Label text="{i18n>lblFechaIncorporacion}" 
+                                     required="true" />
+                                     <DatePicker dateValue="{jsonEmployee>/FechaIncorporacion}" 
+                                                 valueState="{jsonEmployee>/StateFecha}"
+                                                 change="onDataEmployeeValidation" 
+                                                 id="dateFechaIncorporacion"/>
+									
+								</form:SimpleForm>
+							</WizardStep>
+						
+							<WizardStep id="AdditionalInformationStep"
+										activate="onAdditionalInformationActivate"
+										complete="onAdditionalInformationComplete"
+										validated="true"
+										title="Información Adicional">
+								<MessageStrip class="sapUiSmallMarginBottom"
+										text="{i18n>MessageStrip3}"
+										showIcon="true"/>
+                                        
+                                        
+								<form:SimpleForm
+										editable="true">
+									<Label text="Comentarios"/>
+									<TextArea value="{jsonEmployee>/Comentarios}" rows="3"/>													
+								</form:SimpleForm>
+                                                                
+                                                                <upload:UploadSet id="uploadCollection"  />
+
+                   
+							</WizardStep>
+						</Wizard>
+					</content>
+					<footer>
+						<OverflowToolbar>
+							<ToolbarSpacer/>
+							<Button text="{i18n>btnCancelar}" press="onWizardCancel"/>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+
+				<Page id="wizardReviewPage" showHeader="false">
+					<content>
+						
+						<Panel class="sapUiSizeCompact" backgroundDesign="Transparent" headerText="Resumen">
+						 <core:Fragment fragmentName="gestionempleados.fragment.RevisarEmpleado" type="XML"/>
+						</Panel>
+					</content>
+					<footer>
+						<Bar>
+							<contentRight>
+								<Button text="{i18n>btnGuardar}" press="onSaveEmployee"/>
+								<Button text="{i18n>btnCancelar}" press="onWizardCancel"/>
+							</contentRight>
+						</Bar>
+					</footer>
+				</Page>
+			</pages>
+		</NavContainer>
+
+</mvc:View>

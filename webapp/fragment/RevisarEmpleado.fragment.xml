@@ -1,0 +1,105 @@
+<core:FragmentDefinition
+xmlns="sap.m"
+xmlns:core="sap.ui.core"
+xmlns:form="sap.ui.layout.form">
+
+<form:SimpleForm
+								title="1. Tipo de Empleado"
+								minWidth="1024"
+								editable="false"
+								layout="ResponsiveGridLayout">
+							<form:content>
+								<Label text="{i18n/lblTipoEmpleado}"/>
+								<Text id="txtTipoEmpleado" text="{jsonEmployee>/GlosaTipoEmpleado}"/>
+								<Link press="onEditEmployeeTipe" text="Edit" />
+							</form:content>
+						</form:SimpleForm>
+
+						<form:SimpleForm
+								title="2. Datos Empleado"
+								minWidth="1024"
+								editable="false"
+								layout="ResponsiveGridLayout">
+							<form:content>
+								<Label text="{i18n>lblNombre}"/>
+								<Text id="txtNombre" text="{jsonEmployee>/Nombre}"/>
+								<Label text="{i18n>lblApellido}"/>
+								<Text id="txtApellido" text="{jsonEmployee>/Apellido}"/>
+								<Label text="{i18n>lblDNI}"
+								visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleDNIInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleDNIGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleDNIAutonomo} : false }" 
+
+								/>
+								<Text id="txtDNI" 
+									  text="{jsonEmployee>/DNI}"
+									  visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleDNIInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleDNIGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleDNIAutonomo} : false }" 
+									  />
+
+								<Label text="{i18n>lblCIF}"
+								visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleCIFInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleCIFGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleCIFAutonomo} : false }"
+								/>
+								<Text id="txtCIF" 
+									  text="{jsonEmployee>/CIF}"
+									  visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleCIFInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleCIFGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleCIFAutonomo} : false }"	  
+								/>
+								<Label text="{i18n>lblSaldoBrutoAnual}"
+								visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleSaldoBrutoAnualInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleSaldoBrutoAnualGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleSaldoBrutoAnualAutonomo} : false }"
+								/>
+								<Text id="txtSaldoBrutoAnual" 
+								text="{jsonEmployee>/SaldoBrutoAnual}"
+								visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visibleSaldoBrutoAnualInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visibleSaldoBrutoAnualGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visibleSaldoBrutoAnualAutonomo} : false }"
+								/>
+								<Label text="{i18n>lblPrecioDiario}"
+								  visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visiblePrecioDiarioInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visiblePrecioDiarioGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visiblePrecioDiarioAutonomo} : false }"
+								/>
+								<Text id="txtPrecioDiario" text="{jsonEmployee>/PrecioDiario}"
+								  visible="{= ${jsonEmployee>/TipoEmpleado} ==='I'? ${jsonConfig>/visiblePrecioDiarioInterno} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='G'? ${jsonConfig>/visiblePrecioDiarioGerente} :
+                                            ${jsonEmployee>/TipoEmpleado} ==='A'? ${jsonConfig>/visiblePrecioDiarioAutonomo} : false }"
+								/>
+
+								<Label text="{i18n>lblFechaIncorporacion}"/>
+								<Text id="txtFecha" text="{jsonEmployee>/FechaIncorporacion}"/>
+
+
+								<Link press="onEditDataEmployee" text="Edit" />
+							</form:content>
+						</form:SimpleForm>
+
+					
+						<form:SimpleForm
+								title="4. Información Adicional"
+								minWidth="1024"
+								editable="false"
+								layout="ResponsiveGridLayout">
+							<form:content>
+								<Label text="Comentario"/>
+								<Text id="txtObservaciones" text="{jsonEmployee>/Comentarios}"/>
+
+								<Label text="Documentos"/>
+								<Text text="{jsonEmployee>/CantidadArchivos} {i18n>lblFichero}"/>
+								<Label></Label>
+									<List items="{jsonEmployee>/files}">
+										<items>
+											<StandardListItem title="{jsonEmployee>DocName}"></StandardListItem>
+										</items>
+									</List>
+								
+								<Link press="onEditAdditionalInformation" text="Edit" />
+							</form:content>
+						</form:SimpleForm>
+
+</core:FragmentDefinition>

@@ -1,0 +1,25 @@
+{
+  
+    "visibleDNIInterno" : true,
+    "visibleDNIAutonomo" : false,
+    "visibleDNIGerente" : true,
+    "visibleCIFInterno" : false,
+    "visibleCIFAutonomo" : true,
+    "visibleCIFGerente" : false,
+    "visibleSaldoBrutoAnualInterno" : true,
+    "visibleSaldoBrutoAnualGerente" : true,
+    "visibleSaldoBrutoAnualAutonomo" : false,
+    "visiblePrecioDiarioInterno" : false,
+    "visiblePrecioDiarioGerente" : false,
+    "visiblePrecioDiarioAutonomo" : true,
+    "SaldoBrutoAnualDefaultInterno" : 24000,
+    "RangoSaldoBrutoAnualDesdeInterno" : 12000,
+    "RangoSaldoBrutoAnualHastaInterno" : 80000,
+    "SaldoBrutoAnualDefaultGerente" : 70000,
+    "RangoSaldoBrutoAnualDesdeGerente" : 50000,
+    "RangoSaldoBrutoAnualHastaGerente" : 200000,
+    "RangoPrecioDesde" : 100,
+    "RangoPrecioHasta" : 2000,
+    "PrecioDefault" : 400
+    
+}

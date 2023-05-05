@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+xmlns="sap.m"
+xmlns:core="sap.ui.core"
+xmlns:form="sap.ui.layout.form">
+
+ <List items="{odataModelZEmployees>/Users}" id="listEmployee">
+                        <items>
+                            <ObjectListItem title="{odataModelZEmployees>FirstName} {odataModelZEmployees>LastName}" 
+                           
+                            type="Active"
+                            >
+                            <attributes>
+                                <ObjectAttribute text ="{odataModelZEmployees>Dni}"/>                                                         
+                            </attributes>
+
+                            </ObjectListItem>
+                        </items>
+                    </List>     
+
+</core:FragmentDefinition>
