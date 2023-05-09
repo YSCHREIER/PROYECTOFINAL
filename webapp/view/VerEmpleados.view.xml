@@ -4,6 +4,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns:suite="sap.suite.ui.commons"
+	xmlns:upload="sap.m.upload" 
 >
         <SplitApp id="splitAppEmployee">
 		<masterPages>
@@ -13,6 +14,7 @@
 					<SearchField liveChange="onSearchEmployee" width="100%" />
 				</Toolbar>
 				   <core:Fragment fragmentName="gestionempleados.fragment.ListEmpleado" type="XML"/>
+				   
 			</Page>
 		</masterPages>
 		<detailPages>
@@ -41,29 +43,53 @@
 							design="Horizontal"
 							icon="sap-icon://attachment"
 							text="{i18n>lblFichero}">
-							<UploadCollection
-                                        id="UploadCollection"
-                                        maximumFilenameLength="55"
-                                        maximumFileSize="10"
-                                        multiple="true"
-                                        sameFilenameAllowed="true"
-                                        instantUpload="true"
-                                        uploadUrl="/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments"
-                                        items="{odataModelZEmployees>UserToAttachment}"
-                                        change="onChange"
-                                        uploadComplete="onUploadComplete"
-                                        beforeUploadStarts="onBeforeUploadStart"
-                                        fileDeleted="onFileDeleted"
-                                        noDataDescription="{i18n>Arrastrarficheros}">
-                                <items>
-                                    <UploadCollectionItem
-                                        documentId="{odataModel>AttId}"
+
+							 <upload:UploadSet
+                    id="uploadCollection"
+                    maxFileNameLength="100"
+                    maxFileSize="100"
+                    multiple="true"
+                    sameFilenameAllowed="true"
+                    instantUpload="true"
+                    uploadUrl="/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments"
+					 items="{odataModelZEmployees>UserToAttachment}"
+                    
+                    afterItemRemoved="onFileDeleted"
+					noDataDescription="{i18n>Arrastrarficheros}"
+					uploadEnabled="true">
+
+						<upload:toolbar>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+
+						<Button
+							id="uploadSelectedButton"
+							text="{i18n>subirArchivo}"
+							press="onFileUpload"/>
+					
+					<Button
+							id="downloadSelectedButton"
+							text="{i18n>DescargarArchivo}"
+							press="downloadFile"/>
+					
+					<upload:UploadSetToolbarPlaceholder />
+				</OverflowToolbar>
+			</upload:toolbar>
+
+					 <upload:items>
+                                   	<upload:UploadSetItem                                       
                                         visibleEdit="false"
                                         fileName="{odataModelZEmployees>DocName}"
-                                        press="downloadFile">
-                                    </UploadCollectionItem>
-                                </items>
-							</UploadCollection>
+										mediaType="{odataModelZEmployees>MimeType}"
+										openPressed = "downloadFile"
+										url="/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments/"
+                                        >
+                                    </upload:UploadSetItem>
+                                </upload:items>
+
+								</upload:UploadSet>
+
+							
 						</IconTabFilter>
 						<IconTabFilter
 							icon="sap-icon://money-bills"
@@ -74,13 +100,15 @@
 								groupByType="Year"
 								groupBy="CreationDate"
 								showHeaderBar="false"
-								enableScroll="false"
+								enableScroll="true"
 								height="100%"
+								showIcons="true"
+								growingThreshold="0"
 								sortOldestFirst="true"
 								content="{odataModelZEmployees>UserToSalary}">
 								<suite:content>
 									<suite:TimelineItem
-										userName="{parts:[{path:'odataModelZEmployees>Ammount'},{path:'odataModelZEmployees>Waers'}],
+										userName="{parts:[{path:'odataModelZEmployees>Amount'},{path:'odataModelZEmployees>Waers'}],
 												type: 'sap.ui.model.type.Currency',
 												formatOptions: {showMeasure: false}}"
 										icon="sap-icon://circle-task"
