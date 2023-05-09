@@ -1,0 +1,32 @@
+<core:FragmentDefinition
+xmlns="sap.m"
+xmlns:core="sap.ui.core"
+xmlns:form="sap.ui.layout.form">
+
+<Dialog title= "{i18n>lblDialogSalary}">
+
+<content>
+       <form:SimpleForm editable="true">
+
+									<Label text="{i18n>lblSalario}"/>
+									<Input 	id="inputSalario"/>
+
+                                   <Label text="{i18n>lblFecha}"/>
+                                     <DatePicker id="dateFecha"/>
+
+                                     <Label text="{i18n>lblComentario}"/>
+                                     <TextArea id="inputComentario" rows="3"/>
+                                 																		
+								</form:SimpleForm>
+
+</content>
+<beginButton>
+    <Button text="{i18n>lblAceptar}" press="onCloseDialog"/>
+</beginButton>
+<endButton>
+    <Button text="{i18n>lblCancelar}" press="onCloseDialog"/>
+</endButton>
+
+</Dialog>
+
+</core:FragmentDefinition>

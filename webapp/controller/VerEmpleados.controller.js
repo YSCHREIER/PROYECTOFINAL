@@ -16,6 +16,25 @@ sap.ui.define([
             this.sPath="";
         },
 
+        onOpenDialog: function(oEvent)
+            {
+                
+                if(!this.pDialog){
+                    this.pDialog = sap.ui.xmlfragment("gestionempleados.fragment.DialogSalary",this);
+                    this.getView().addDependent(this.pDialog);                
+                }
+
+                this.pDialog.bindElement("odataModelZEmployees>" + this.sPath);
+                this.pDialog.open();
+
+            },
+
+            onCloseDialog: function()
+            {
+                this.pDialog.close();
+            },
+
+
         onSelectionEmployee:function(oEvent)
         {
             let oBindingContext = oEvent.getSource().getBindingContext("odataModelZEmployees"),

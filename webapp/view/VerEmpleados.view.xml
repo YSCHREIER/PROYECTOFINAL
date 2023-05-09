@@ -14,7 +14,7 @@
 					<SearchField liveChange="onSearchEmployee" width="100%" />
 				</Toolbar>
 				   <core:Fragment fragmentName="gestionempleados.fragment.ListEmpleado" type="XML"/>
-				   
+
 			</Page>
 		</masterPages>
 		<detailPages>
@@ -124,7 +124,7 @@
 					<Toolbar>
 						<ToolbarSpacer></ToolbarSpacer>
 						<Button text="{i18n>darDeBaja}" press="onDeleteEmployee"></Button>
-						<Button text="{i18n>ascender}" press="onRiseEmployee"></Button>
+						<Button text="{i18n>ascender}" press="onOpenDialog"></Button>
 					</Toolbar>
 					
 				</footer>
