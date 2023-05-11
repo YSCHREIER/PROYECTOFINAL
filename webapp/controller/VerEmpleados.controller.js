@@ -14,6 +14,57 @@ sap.ui.define([
             this.sIdEmployee="";
             this.sSapId="";
             this.sPath="";
+
+          
+
+
+        },
+
+
+        onSaveSalary: function(){
+
+            let oResourceBundle = this.getView().getModel("i18n").getResourceBundle(),                
+            oController = this;
+
+            var oModelSalary = this.pDialog.getModel("newSalary");
+		    
+		    var odataSalary = oModelSalary.getData();
+        
+                 odataSalary = {
+                    EmployeeId : this.sIdEmployee,
+                    SapId : this.sSapId,
+                    CreationDate : odataSalary.CreationDate,
+                    Amount : odataSalary.Amount,
+                    Comments : odataSalary.Comments
+                              
+                };
+
+                let sUrl = "/Salaries"; //NOMBRE DE LA ENTIDAD
+
+             
+                this.getView().getModel("odataModelZEmployees").create(sUrl,odataSalary,{
+                        success: function(data){      
+                                                    
+                            MessageBox.success(oResourceBundle.getText("lblPopUpOk"), {
+                                actions: [MessageBox.Action.OK],
+                                onClose: function (oAction) {
+                                    if (oAction === MessageBox.Action.OK) {
+                                        
+                                        oController.onCloseDialog();
+                                     
+                                    }
+                                }.bind(oController)
+                            });
+
+                        }.bind(this),
+                        error : function(){
+                          
+                            sap.m.MessageToast.show(oResourceBundle.getText("lblPopUpNOk"));
+                        }.bind(this)
+
+                });                  
+
+
         },
 
         onOpenDialog: function(oEvent)
@@ -24,7 +75,8 @@ sap.ui.define([
                     this.getView().addDependent(this.pDialog);                
                 }
 
-                this.pDialog.bindElement("odataModelZEmployees>" + this.sPath);
+                this.pDialog.setModel(new sap.ui.model.json.JSONModel({}),"newSalary");
+
                 this.pDialog.open();
 
             },
@@ -86,22 +138,6 @@ sap.ui.define([
 
         },
 
-
-
-        readUploadSet : function (sIdEmployee, sSAPID) {
-
-        //Bind Files
-        this.byId("uploadCollection").bindAggregation("items", {
-            path: "odataModelZEmployees>/Attachments",
-            filters: [
-              
-                new Filter("SapId", FilterOperator.EQ, sSAPID),
-                new Filter("EmployeeId", FilterOperator.EQ, sIdEmployee),
-            ]
-        });
-
-       
-       },
 
 
         onSearchEmployee:function(oEvent)
@@ -197,16 +233,14 @@ sap.ui.define([
         },
 
         downloadFile : function(oEvent) {
-            
-            var oUploadSet = this.getView().byId("uploadCollection");
 
-            
-			oUploadSet.getItems().forEach(function (oItem) {
-				if (oItem.getListItem().getSelected()) {
-					oItem.download(true);
-				}
-			});
-            
+            let oItem = oEvent.getSource(),
+                oBindingContext = oItem.getBindingContext("odataModelZEmployees"),
+                sPath = oBindingContext.getPath(),
+                sUrl = "/sap/opu/odata/sap/ZEMPLOYEES_SRV/"+sPath+"/$value"
+          
+                oItem.setUrl(sUrl);
+
 
         }
 

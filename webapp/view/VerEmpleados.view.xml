@@ -67,10 +67,6 @@
 							text="{i18n>subirArchivo}"
 							press="onFileUpload"/>
 					
-					<Button
-							id="downloadSelectedButton"
-							text="{i18n>DescargarArchivo}"
-							press="downloadFile"/>
 					
 					<upload:UploadSetToolbarPlaceholder />
 				</OverflowToolbar>

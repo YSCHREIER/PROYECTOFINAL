@@ -9,19 +9,19 @@ xmlns:form="sap.ui.layout.form">
        <form:SimpleForm editable="true">
 
 									<Label text="{i18n>lblSalario}"/>
-									<Input 	id="inputSalario"/>
+									<Input 	id="inputSalario" value="{newSalary>/Amount}"/>
 
                                    <Label text="{i18n>lblFecha}"/>
-                                     <DatePicker id="dateFecha"/>
+                                     <DatePicker id="dateFecha" value="{newSalary>/CreationDate}"/>
 
                                      <Label text="{i18n>lblComentario}"/>
-                                     <TextArea id="inputComentario" rows="3"/>
+                                     <TextArea id="inputComentario" rows="3" value="{newSalary>/Comments}"/>
                                  																		
 								</form:SimpleForm>
 
 </content>
 <beginButton>
-    <Button text="{i18n>lblAceptar}" press="onCloseDialog"/>
+    <Button text="{i18n>lblAceptar}" press="onSaveSalary"/>
 </beginButton>
 <endButton>
     <Button text="{i18n>lblCancelar}" press="onCloseDialog"/>
