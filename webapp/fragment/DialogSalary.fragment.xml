@@ -12,7 +12,7 @@ xmlns:form="sap.ui.layout.form">
 									<Input 	id="inputSalario" value="{newSalary>/Amount}"/>
 
                                    <Label text="{i18n>lblFecha}"/>
-                                     <DatePicker id="dateFecha" value="{newSalary>/CreationDate}"/>
+                                     <DatePicker id="dateFecha" dateValue="{newSalary>/CreationDate}"/>
 
                                      <Label text="{i18n>lblComentario}"/>
                                      <TextArea id="inputComentario" rows="3" value="{newSalary>/Comments}"/>
