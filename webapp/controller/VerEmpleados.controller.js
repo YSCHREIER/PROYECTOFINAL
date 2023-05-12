@@ -4,8 +4,9 @@ sap.ui.define([
     "sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel",
-    "sap/m/MessageBox"
-], function (Controller,Filter,FilterOperator,JSONModel,MessageBox) {
+    "sap/m/MessageBox",
+    "sap/ui/core/routing/History",
+], function (Controller,Filter,FilterOperator,JSONModel,MessageBox,History) {
 
     return Controller.extend("gestionempleados.controller.VerEmpleados", {
 
@@ -232,6 +233,23 @@ sap.ui.define([
             });
         },
 
+
+        onGoBack : function(){
+
+            let oHistory = History.getInstance(),
+            sPreviosHash = oHistory.getPreviousHash();
+          
+            
+        if(sPreviosHash !== 'undefined')
+        {
+            window.history.go(-1);
+        }else
+        {
+            let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.navTo("menu",true);
+        }
+
+        },
         downloadFile : function(oEvent) {
 
             let oItem = oEvent.getSource(),
