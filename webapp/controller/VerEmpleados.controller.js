@@ -13,7 +13,7 @@ sap.ui.define([
         onInit: function () {
             
             this.sIdEmployee="";
-            this.sSapId="";
+            this.sSAPID="";
             this.sPath="";
 
           
@@ -24,6 +24,8 @@ sap.ui.define([
 
         onSaveSalary: function(){
 
+            // LLAMADA AL SERVICIO Salaries para guardar un nuevo salario al empleado seleccionado
+
             let oResourceBundle = this.getView().getModel("i18n").getResourceBundle(),                
             oController = this;
 
@@ -33,7 +35,7 @@ sap.ui.define([
         
                  odataSalary = {
                     EmployeeId : this.sIdEmployee,
-                    SapId : this.sSapId,
+                    SapId : this.sSAPID,
                     CreationDate : odataSalary.CreationDate,
                     Amount : odataSalary.Amount,
                     Comments : odataSalary.Comments
@@ -90,6 +92,8 @@ sap.ui.define([
 
         onSelectionEmployee:function(oEvent)
         {
+            // SE OBTIENE EL EMPLEADO SELECCIONADO DE LA LISTA DESPLEGABLE Y SE MUESTRA SU DETALLE
+
             let oBindingContext = oEvent.getSource().getBindingContext("odataModelZEmployees"),
                 sIdEmployee = oBindingContext.getObject().EmployeeId,
                 sSAPID=oBindingContext.getObject().SapId,
@@ -107,6 +111,8 @@ sap.ui.define([
         },
 
         onDeleteEmployee : function(){
+
+            //INVOCACION AL SERVICIO ELIMINAR EMPLEADO, SE ENVIA COMO PARAMETRO LAS LLAVES PRINCIPALES EmployeeId y SapId
 
             var that = this;
             let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();

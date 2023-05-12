@@ -10,6 +10,10 @@ sap.ui.define([
             
         },
 
+            
+         
+
+
         NavToCrearEmpleados: function(oEvent){
 
             let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -26,8 +30,8 @@ sap.ui.define([
 
         NavToPedidos: function(oEvent){
 
-            let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            oRouter.navTo("crear_empleado");
+            var URL = "https://2d97ae28trial-dev-class7-approuter.cfapps.us10-001.hana.ondemand.com";
+            window.open(URL);
 
         },
 
